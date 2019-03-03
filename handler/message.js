@@ -1,18 +1,19 @@
-var auth = require("./authority.js")
-function handler(msg) {
+var data = require("./data/accessor.js");
+
+var handler = async (msg) => {
   var author = msg.author;
-  var content = msg.content;
+  var content = msg.content.split(" ");
+  var command = content[0];
 
-
-  if (msg.content === 'ping') {
+  if (command === 'ping') {
     msg.reply('pong');
   }
 
-  if(msg.content === "hello") {
-    if(auth.has(auth.category.ADMIN, msg.author.id)) {
-       msg.reply("User has auth");
+  if(command === "add") {
+    if(content.length == 1){
+      await data.addPoint(msg.author.id);
     } else {
-       msg.reply("User does not have auth")
+      await data.addPoint(msg.mentions.users.first().id);
     }
   }
 }
