@@ -1,4 +1,4 @@
-var data = require("./data/accessor.js");
+var data = require("../data/accessor.js");
 
 var handler = async (msg) => {
   var author = msg.author;
@@ -11,9 +11,9 @@ var handler = async (msg) => {
 
   if(command === "add") {
     if(content.length == 1){
-      await data.addPoint(msg.author.id);
+      await data.addPoint(msg.author.id, msg.author.username);
     } else {
-      await data.addPoint(msg.mentions.users.first().id);
+      await data.addPoint(msg.mentions.users.first().id, msg.mentions.users.first().username);
     }
   }
 }

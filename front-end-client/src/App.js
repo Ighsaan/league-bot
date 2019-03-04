@@ -12,7 +12,7 @@ class App extends Component {
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
   }
-  
+
   callApi = async () => {
     const response = await fetch('/api/LeaderBoard');
     const body = await response.json();
@@ -40,13 +40,22 @@ render() {
           <p> SA Open League </p>
         </header>
 
-        <table>
-          {this.state.response.ranking.map((rank, index) =>
+        <div className="Center">
+          <table>
             <tr>
-              {index}. {rank.discordid}: {rank.points}
+              <th> # </th>
+              <th> Name </th>
+              <th> Points </th>
             </tr>
-          )}
-        </table>
+            {this.state.response.ranking.map((rank, index) =>
+              <tr>
+                <td>{index+1}</td>
+                <td>{rank.discordid}</td>
+                <td>{rank.points}</td>
+              </tr>
+            )}
+          </table>
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require('path');
 
-var dao = require("./handler/data/accessor.js");
+var dao = require("./data/accessor.js");
 
 const start = () => {
   var app = express();
