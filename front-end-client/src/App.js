@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import LeaderboardHeader from './LeaderboardHeader.js';
+import ColumnHeader from './ColumnHeader.js';
+import User from './User.js';
+
+import './css/App.scss';
+
 class App extends Component {
   state = {
     response: {ranking: []},
@@ -35,27 +39,12 @@ class App extends Component {
 
 render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p> SA Open League </p>
-        </header>
-
-        <div className="Center">
-          <table>
-            <tr>
-              <th> # </th>
-              <th> Name </th>
-              <th> Points </th>
-            </tr>
-            {this.state.response.ranking.map((rank, index) =>
-              <tr>
-                <td>{index+1}</td>
-                <td>{rank.discordid}</td>
-                <td>{rank.points}</td>
-              </tr>
-            )}
-          </table>
-        </div>
+      <div className="container">
+        <LeaderboardHeader />
+        <ColumnHeader />
+        {this.state.response.ranking.map((rank, index) =>
+          <User rank={index+1} name={rank.discordid} points={rank.points} />
+        )}
       </div>
     );
   }

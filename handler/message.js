@@ -10,11 +10,14 @@ var handler = async (msg) => {
   }
 
   if(command === "add") {
+    var user;
     if(content.length == 1){
-      await data.addPoint(msg.author.id, msg.author.username);
+      user = msg.author;
     } else {
-      await data.addPoint(msg.mentions.users.first().id, msg.mentions.users.first().username);
+      user = msg.mentions.users.first();
     }
+    await data.addPoint(user.id, user.username);
+    msg.reply('User added');
   }
 }
 
