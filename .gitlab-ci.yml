@@ -19,3 +19,4 @@ deploy:
     - docker login --email=_ --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker tag registry.gitlab.com/nifaio/league-bot:latest registry.heroku.com/league-discord-bot-staging/web:latest
     - docker push registry.heroku.com/league-discord-bot-staging/web:latest
+    - ./release.sh $CI_PROJECT_NAME
