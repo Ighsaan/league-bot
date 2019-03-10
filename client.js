@@ -11,7 +11,7 @@ const start = () => {
 
   client.on('message', messageHandler);
 
-  client.login(process.env.DISCORD_API || 'NTQ2NzAyNjc0NzA4NTI5MTkz.D0sE5g.QM7jYcvtfk7H-CLLBdq8z578TdE');
+  client.login(process.env.DISCORD_API || 'NDA3NjA1Njc1NjIwMDQwNzI2.D2cXPg.oEaqyr5PzCNg41nLV6-bPoO5S4s');
 }
 
 module.exports = start;
