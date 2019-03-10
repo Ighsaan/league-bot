@@ -8,8 +8,8 @@
    stage: build
    script:
      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/nifaio/league-bot
-     - docker build -t registry.gitlab.com/nifaio/league-bot:latest .
-     - docker push registry.gitlab.com/nifaio/league-bot:latest
+     - docker build -t registry.gitlab.com/nifaio/league-bot:staging .
+     - docker push registry.gitlab.com/nifaio/league-bot:staging
 
 deploy:
   stage: deploy
@@ -17,6 +17,6 @@ deploy:
   - docker:dind
   script:
     - docker login --email=_ --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    - docker tag registry.gitlab.com/nifaio/league-bot:latest registry.heroku.com/league-discord-bot-staging/web:latest
-    - docker push registry.heroku.com/league-discord-bot-staging/web:latest
-    - ./release.sh league-discord-bot-staging
+    - docker tag registry.gitlab.com/nifaio/league-bot:staging registry.heroku.com/league-discord-bot-staging/web
+    - docker push registry.heroku.com/league-discord-bot-staging/web
+    - docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release web --app league-discord-bot-staging
