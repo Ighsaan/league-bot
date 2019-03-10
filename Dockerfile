@@ -1,7 +1,7 @@
-FROM node:10.15.0-alpine
-WORKDIR /app
-COPY . /app
-RUN adduser -D myuser
-USER myuser
+FROM node:alpine
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app/
 RUN npm install
-CMD ["npm", "run", "start"]
+COPY . /usr/src/app
+CMD [ "npm", "start" ]
