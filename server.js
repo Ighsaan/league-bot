@@ -8,7 +8,7 @@ const start = () => {
   var app = express();
 
 
-  app.use(express.static(path.join(__dirname, 'front-end-client/build')));
+  app.use(express.static(path.join(__dirname, 'public')));
 
   app.get("/api/LeaderBoard", async (req, res) => {
     var ranking = await dao.getLeaderBoard();
@@ -19,7 +19,7 @@ const start = () => {
   });
 
   app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/front-end-client/build/index.html'));
+    res.sendFile(path.join(__dirname+'/public/index.html'));
   });
 
   app.listen(port, () => {
