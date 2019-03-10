@@ -3,11 +3,11 @@ const UserModel = require('../models/user');
 const GameModel = require('../models/game');
 
 const sequelize = new Sequelize({
-  username: 'dev',
-  host: 'localhost',
-  database: 'league',
-  password: 'ilpass123',
-  port: 5432,
+  username: process.env.POSTGRES_USER || 'dev',
+  host: process.env.POSTGRES_HOST || 'localhost',
+  database: process.env.POSTGRES_DATABASE || 'league',
+  password: process.env.POSTGRES_PASSWORD || 'ilpass123',
+  port: process.env.POSTGRES_PORT || 5432,
   dialect: 'postgres',
   pool: {
     max: 10,
