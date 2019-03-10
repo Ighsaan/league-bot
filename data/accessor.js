@@ -1,5 +1,5 @@
 var {User, Game} = require("./implementation");
-const Sequelize = require('Sequelize');
+const Sequelize = require('sequelize');
 
 const getLeaderBoard = async () => {
   return await Game.findAll({

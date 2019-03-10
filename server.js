@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path');
 
 var dao = require("./data/accessor.js");
+var port = process.env.PORT || 5000;
 
 const start = () => {
   var app = express();
@@ -21,8 +22,8 @@ const start = () => {
     res.sendFile(path.join(__dirname+'/front-end-client/build/index.html'));
   });
 
-  app.listen(5000, () => {
-   console.log("Server running on port 3000");
+  app.listen(port, () => {
+   console.log("Server running on port " + port);
   });
 }
 
