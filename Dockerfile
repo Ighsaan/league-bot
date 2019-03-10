@@ -1,8 +1,6 @@
-FROM node:8
-
+FROM node:10.15.0-alpine
 WORKDIR /app
-COPY package*.json ./
-COPY . .
+COPY . /app
+RUN ["npm", "install"]
 EXPOSE 80
-CMD [ "npm", "install" ]
-CMD [ "npm", "start" ]
+CMD ["npm", "run", "start"]
