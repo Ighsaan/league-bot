@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.addColumn(
       'Users',
       'epicId',
-     Sequelize.INTEGER
+     Sequelize.STRING
     );
   },
 

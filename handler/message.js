@@ -1,32 +1,29 @@
-var data = require("../data/accessor.js");
-const { addFriend, loadClient } = require('../client/epic_games.js');
+const add = require('./command/add.js');
+const verify = require('./command/verify.js');
+const code = require('./command/code.js');
 
 var handler = async (msg) => {
   var author = msg.author;
   var content = msg.content.split(" ");
   var command = content[0];
+  content = content.slice(1);
 
-  if (command === 'ping') {
-    msg.reply('pong');
-  }
-
-  if(command === 'add') {
-    var user;
-    if(content.length == 1){
-      user = msg.author;
-    } else {
-      user = msg.mentions.users.first();
+  switch(command) {
+    case 'ping' : {
+      msg.reply('pong');
+      break;
     }
-    var response = await data.addPoint(user.id, user.username);
-    msg.reply(response);
-  }
-
-  if(command === 'meh') {
-    if(content.length == 1) {
-      msg.reply('Please supply a Epic username');
-    } else {
-      var response = await addFriend(content.slice(1).join(" "));
-      msg.reply(response);
+    case 'add' : {
+      msg.reply(await add(msg.mentions.users.first()));
+      break;
+    }
+    case 'verify' : {
+      msg.reply(await verify(author, content));
+      break;
+    }
+    case 'code' : {
+      msg.reply(await code(author, content));
+      break;
     }
   }
 }

@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const UserModel = require('../models/user');
 const GameModel = require('../models/game');
+const VerifyModel = require('../models/verify');
 
 const sequelize = new Sequelize({
   username: process.env.POSTGRES_USER || 'dev',
@@ -20,11 +21,13 @@ const sequelize = new Sequelize({
 
 const User = UserModel(sequelize, Sequelize);
 const Game = GameModel(sequelize, Sequelize);
+const Verify = VerifyModel(sequelize, Sequelize);
 
 Game.belongsTo(User, {foreignKey: 'userId'});
 User.hasMany(Game, {foreignKey: 'userId'});
 
 module.exports = {
   User,
-  Game
+  Game,
+  Verify
 }

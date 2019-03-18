@@ -1,4 +1,4 @@
-var {User, Game} = require("./implementation");
+var {User, Game, Verify} = require("./implementation");
 const Sequelize = require('sequelize');
 
 const getLeaderBoard = async () => {
@@ -15,17 +15,73 @@ const getLeaderBoard = async () => {
   })
 }
 
-const addPoint = async (discordid, displayName) => {
-  var result = await User.find({ where: {discordId: discordid}});
+const addUser = async (displayName, discordId, epicId) => {
+  await User.create({
+    displayName: displayName,
+    discordId: discordId,
+    epicId: epicId
+  });
+}
+
+const getUserByEpicId = async (epicId) => {
+  var result = await User.findOne({ where: {
+    epicId: epicId
+  }});
+
+  return result;
+}
+
+const addPoint = async (discordid) => {
+  var result = await User.findOne({ where: {discordId: discordid}});
   if(!result) {
-    return 'User not registered';
+    return false;
   }
   var userId = result.id;
   await Game.create({ userId: userId });
-  return 'User Added';
+  return true;
+}
+
+const addVerification = async (discordId, epicId, code) => {
+  var result = await Verify.findOne({ where: {
+    epicId: epicId
+  }});
+
+  if(result) {
+    return false;
+  }
+
+  await Verify.create({
+    discordId: discordId,
+    epicId: epicId,
+    code: code
+  })
+
+  return true;
+}
+
+const getVerification = async (epicId) => {
+  var result = await Verify.findOne({ where: {
+    epicId: epicId
+  }});
+
+  return result;
+}
+
+const getVerificationByDiscordIdAndCode = async (discordId, code) => {
+  var result = await Verify.findOne({ where: {
+    discordId: discordId,
+    code: code
+  }});
+
+  return result;
 }
 
 module.exports = {
   getLeaderBoard: getLeaderBoard,
-  addPoint: addPoint
+  addPoint: addPoint,
+  addUser: addUser,
+  addVerification: addVerification,
+  getVerification: getVerification,
+  getUserByEpicId: getUserByEpicId,
+  getVerificationByDiscordIdAndCode: getVerificationByDiscordIdAndCode
 };

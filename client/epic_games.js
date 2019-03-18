@@ -1,8 +1,9 @@
 const { Client } = require('epicgames-client');
+const data = require("../data/accessor.js");
 
 let client = new Client({
-    email: 'thelightflame@gmail.com',
-    password: 'Qwerty1!'
+    email: process.env.EPIC_USER,
+    password: process.env.EPIC_PASSWORD
 });
 
 const loadClient = async () => {
@@ -16,21 +17,36 @@ const loadClient = async () => {
 }
 
 const handleFriendRequest = (client) => {
-  return async data => {
-    await client.communicator.sendMessage(data.id, 'Hello');
-    await data.remove()
+  return async friend => {
+    var result = await data.getVerification(friend.id);
+
+    if(!!result) {
+      await client.communicator.sendMessage(friend.id, "code "+result.dataValues.code);
+      await friend.remove();
+    }
   }
 }
 
-const addFriend = async (userId) => {
-  let account = await client.lookup(userId);
-
+const addFriend = async (epicId, discordId) => {
+  var account = await client.lookup(epicId);
   if(!account){
-      return 'User not found';
+    return 'User not found';
   }
 
-  await client.inviteFriend(userId);
-  return 'User Added';
+  var user = await data.getUserByEpicId(account.id);
+  if(user) {
+    return 'Epic ID already verified';
+  }
+
+  var code = Math.floor(1000 + Math.random() * 9000);
+  var result = await data.addVerification(discordId, account.id, code);
+
+  if(!result) {
+    return 'Verification already pending for epic username';
+  }
+
+  await client.inviteFriend(epicId);
+  return 'User added';
 }
 
 module.exports = {
