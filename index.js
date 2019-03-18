@@ -1,5 +1,7 @@
 const server = require('./server.js');
-const client = require('./client.js');
+const discordClient = require('./client/discord.js');
+const epicClient = require('./client/epic_games.js');
 
 server();
-client();
+discordClient();
+epicClient.loadClient();

@@ -16,9 +16,13 @@ const getLeaderBoard = async () => {
 }
 
 const addPoint = async (discordid, displayName) => {
-  var result = await User.findOrCreate({ where: {discordId: discordid}, defaults: {displayName: displayName} });
-  var userId = result[0].id;
+  var result = await User.find({ where: {discordId: discordid}});
+  if(!result) {
+    return 'User not registered';
+  }
+  var userId = result.id;
   await Game.create({ userId: userId });
+  return 'User Added';
 }
 
 module.exports = {

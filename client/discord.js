@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const messageHandler = require('./handler/message.js');
+const messageHandler = require('../handler/message.js');
 
 const start = () => {
 

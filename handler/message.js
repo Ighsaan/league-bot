@@ -1,4 +1,5 @@
 var data = require("../data/accessor.js");
+const { addFriend, loadClient } = require('../client/epic_games.js');
 
 var handler = async (msg) => {
   var author = msg.author;
@@ -9,15 +10,24 @@ var handler = async (msg) => {
     msg.reply('pong');
   }
 
-  if(command === "add") {
+  if(command === 'add') {
     var user;
     if(content.length == 1){
       user = msg.author;
     } else {
       user = msg.mentions.users.first();
     }
-    await data.addPoint(user.id, user.username);
-    msg.reply('User added');
+    var response = await data.addPoint(user.id, user.username);
+    msg.reply(response);
+  }
+
+  if(command === 'meh') {
+    if(content.length == 1) {
+      msg.reply('Please supply a Epic username');
+    } else {
+      var response = await addFriend(content.slice(1).join(" "));
+      msg.reply(response);
+    }
   }
 }
 
