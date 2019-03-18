@@ -2,7 +2,7 @@ const { Client } = require('epicgames-client');
 
 let client = new Client({
     email: 'thelightflame@gmail.com',
-    password: 'Ighsaanwevy1!'
+    password: 'Qwerty1!'
 });
 
 const loadClient = async () => {
