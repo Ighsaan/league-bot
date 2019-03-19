@@ -1,5 +1,6 @@
 const { Client } = require('epicgames-client');
-const data = require("../data/accessor.js");
+const verifyDao = require("../data/dao/verify.js");
+const userDao = require("../data/dao/user.js");
 
 let client = new Client({
     email: process.env.EPIC_USER || 'thelightflame@gmail.com',
@@ -18,7 +19,7 @@ const loadClient = async () => {
 
 const handleFriendRequest = (client) => {
   return async friend => {
-    var result = await data.getVerification(friend.id);
+    var result = await verifyDao.getByEpicId(friend.id);
 
     if(!!result) {
       await client.communicator.sendMessage(friend.id, "code "+result.dataValues.code);
@@ -33,19 +34,21 @@ const addFriend = async (epicId, discordId) => {
     return 'Epic user not found';
   }
 
-  var user = await data.getUserByEpicId(account.id);
+  var user = await userDao.getByEpicId(account.id);
   if(user) {
     return 'Epic user already verified';
   }
 
   var code = Math.floor(1000 + Math.random() * 9000);
-  var result = await data.addVerification(discordId, account.id, code);
+  var verify = await verifyDao.getByEpicId(epicId);
 
-  if(!result) {
+  if(verify) {
     return 'Verification already pending for epic username';
   }
 
+  await verifyDao.add(discordId, account.id, code);
   await client.inviteFriend(epicId);
+
   return 'Friend Request has been sent to your Epic games account, please'
   + ' accept the request and copy paste the message as is from the bot sent'
   + ' on Epic games';

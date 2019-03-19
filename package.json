@@ -1,13 +1,11 @@
 {
-  "name": "discord-bot",
+  "name": "league-bot",
   "version": "1.0.0",
-  "description": "Discord Bot",
-  "main": "index.js",
+  "description": "League Bot",
+  "main": "start.js",
   "scripts": {
     "client": "cd front-end-client && npm start",
-    "server": "node index.js",
-    "start": "node index.js",
-    "dev": "npm run server && npm run client",
+    "start": "node start.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

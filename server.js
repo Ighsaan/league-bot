@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require('path');
 
-var dao = require("./data/accessor.js");
+var gameDao = require("./data/dao/game.js");
 var port = process.env.PORT || 5000;
 
 const start = () => {
@@ -10,7 +10,7 @@ const start = () => {
   app.use(express.static(path.join(__dirname, 'public')));
 
   app.get("/api/LeaderBoard", async (req, res) => {
-    var ranking = await dao.getLeaderBoard();
+    var ranking = await gameDao.getLeaderBoard();
     var data = {
       ranking: ranking
     }

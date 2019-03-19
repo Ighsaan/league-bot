@@ -1,4 +1,5 @@
-var data = require("../../data/accessor.js");
+var userDao = require("../../data/dao/user.js");
+var verifyDao = require("../../data/dao/verify.js");
 
 const command = async (author, content) => {
   if(content == 0) {
@@ -6,10 +7,10 @@ const command = async (author, content) => {
   }
 
   var code = content[0];
-  var result = await data.getVerificationByDiscordIdAndCode(author.id, code);
+  var result = await verifyDao.getByDiscordIdAndCode(author.id, code);
   if(result) {
     var verify = result.dataValues;
-    await data.addUser(author.username, author.id, verify.epicId);
+    await userDao.add(author.username, author.id, verify.epicId);
     await result.destroy();
     return 'Discord Verified';
   } else {

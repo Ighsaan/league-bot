@@ -1,10 +1,10 @@
 const { addFriend } = require('../../client/epic_games.js');
-const data = require('../../data/accessor.js');
+const userDao = require('../../data/dao/user.js');
 
 const command = async (author, content) => {
   var response;
 
-  var result = await data.getUserByDiscordId(author.id);
+  var result = await userDao.getByDiscordId(author.id);
   if(result) {
     return 'You are already verified';
   }
