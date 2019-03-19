@@ -2,8 +2,8 @@ const { Client } = require('epicgames-client');
 const data = require("../data/accessor.js");
 
 let client = new Client({
-    email: process.env.EPIC_USER,
-    password: process.env.EPIC_PASSWORD
+    email: process.env.EPIC_USER || 'thelightflame@gmail.com',
+    password: process.env.EPIC_PASSWORD || 'Qwerty1!'
 });
 
 const loadClient = async () => {
@@ -30,12 +30,12 @@ const handleFriendRequest = (client) => {
 const addFriend = async (epicId, discordId) => {
   var account = await client.lookup(epicId);
   if(!account){
-    return 'User not found';
+    return 'Epic user not found';
   }
 
   var user = await data.getUserByEpicId(account.id);
   if(user) {
-    return 'Epic ID already verified';
+    return 'Epic user already verified';
   }
 
   var code = Math.floor(1000 + Math.random() * 9000);
@@ -46,7 +46,9 @@ const addFriend = async (epicId, discordId) => {
   }
 
   await client.inviteFriend(epicId);
-  return 'User added';
+  return 'Friend Request has been sent to your Epic games account, please'
+  + ' accept the request and copy paste the message as is from the bot sent'
+  + ' on Epic games';
 }
 
 module.exports = {

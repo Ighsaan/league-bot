@@ -31,6 +31,14 @@ const getUserByEpicId = async (epicId) => {
   return result;
 }
 
+const getUserByDiscordId = async (discordId) => {
+  var result = await User.findOne({ where: {
+    discordId: discordId
+  }});
+
+  return result;
+}
+
 const addPoint = async (discordid) => {
   var result = await User.findOne({ where: {discordId: discordid}});
   if(!result) {
@@ -83,5 +91,6 @@ module.exports = {
   addVerification: addVerification,
   getVerification: getVerification,
   getUserByEpicId: getUserByEpicId,
+  getUserByDiscordId: getUserByDiscordId,
   getVerificationByDiscordIdAndCode: getVerificationByDiscordIdAndCode
 };

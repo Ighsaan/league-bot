@@ -11,7 +11,7 @@ const command = async (author, content) => {
     var verify = result.dataValues;
     await data.addUser(author.username, author.id, verify.epicId);
     await result.destroy();
-    return 'User Created';
+    return 'Discord Verified';
   } else {
     return 'Invalid Code';
   }

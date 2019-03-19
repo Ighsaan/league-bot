@@ -3,9 +3,12 @@ const verify = require('./command/verify.js');
 const code = require('./command/code.js');
 
 var handler = async (msg) => {
+  if(msg.channel.type != 'dm'){
+    return;
+  }
   var author = msg.author;
   var content = msg.content.split(" ");
-  var command = content[0];
+  var command = content[0].toLowerCase();
   content = content.slice(1);
 
   switch(command) {
