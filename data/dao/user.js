@@ -1,31 +1,18 @@
 var {User} = require("../implementation");
 
-const add = async (displayName, discordId, epicId) => {
+const add = async (displayName, discordId) => {
   await User.create({
     displayName: displayName,
-    discordId: discordId,
-    epicId: epicId
+    discordId: discordId
   });
 }
 
-const getByEpicId = async (epicId) => {
-  var result = await User.findOne({ where: {
-    epicId: epicId
-  }});
-
-  return result;
-}
-
-const getByDiscordId = async (discordId) => {
-  var result = await User.findOne({ where: {
-    discordId: discordId
-  }});
-
-  return result;
+const getByDiscordId = async (discordId, displayName) => {
+  var result = await User.findOrCreate({ where: {discordId: discordId}, defaults: {displayName: displayName} });
+  return result[0];
 }
 
 module.exports = {
   add: add,
-  getByEpicId: getByEpicId,
   getByDiscordId: getByDiscordId
 }

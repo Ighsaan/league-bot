@@ -5,14 +5,13 @@
   "main": "start.js",
   "scripts": {
     "client": "cd front-end-client && npm start",
-    "start": "node start.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node start.js"
   },
-  "author": "",
+  "author": "Ighsaan Levy",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "epicgames-client": "^1.5.4",
+    "discord.js-commando": "^0.10.0",
     "express": "^4.16.4",
     "pg": "^7.8.1",
     "pg-hstore": "^2.3.2",

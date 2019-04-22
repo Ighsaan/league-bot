@@ -1,16 +1,19 @@
-var {Game} = require("../implementation");
+var {Game, User} = require("../implementation");
 const Sequelize = require('sequelize');
 
-
-const add = async (userId) => {
+const add = async (userId, type) => {
   await Game.create({
-    userId: userId
+    userId: userId,
+    type: type
   });
 }
 
-const getLeaderBoard = async () => {
+const getLeaderBoard = async (type) => {
   return await Game.findAll({
     group: [Sequelize.col('User.id')],
+    where: {
+      type: type
+    },
     include: [{
       model: User,
       attributes: []

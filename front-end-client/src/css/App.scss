@@ -3,38 +3,45 @@
 $main-font: 'Montserrat', sans-serif;
 
 // Color variables
-$maincolor:rgba(0, 168, 232, 0.79);
-$whiterow: rgba(254, 254, 254, .9);
-$greyrow: rgba(240, 240, 240, .9);
+$backgroundcolor:#5e5e5e;
+$maincolor:#94dde3;
+$colheader: rgba(254, 254, 254, .9);
+$oddrow: rgba(254, 254, 254, .9);
+$evenrow: rgba(240, 240, 240, .9);
 $white: rgba(254, 254, 254, 1);
 
 body {
-  background: url('https:\/\/i.kinja-img.com/gawker-media/image/upload/m6ztwkawvypgrnn9k5o3.jpg') no-repeat center center fixed;
+  background-color: $backgroundcolor;
   background-size: cover;
   font-family: $main-font;
 }
 
-.App {
-  text-align: center;
-  align: center;
+.logo{
+  display: block;
+  height: 15%;
+  width: 15%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.App-header{
-  background-color: #282c34;
-  min-height: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  padding-bottom: 10px;
+.navbar{
+  width: 550px;
+  margin: 0px auto;
+  text-align: center;
+  font-size: 25px;
+  & a {
+    color: $maincolor;
+  }
 }
+
 
 // Leaderboard
-.container {
+.leaderboard {
   width: 550px;
-  margin: 80px auto;
+  margin: 0px auto;
+  text-align: center;
 }
 
 .leadheader {
@@ -52,7 +59,7 @@ body {
 
 // Column header
 .colheader {
-  background: $whiterow;
+  background: $colheader;
   width: 100%;
   margin-left: 0;
   text-align: center;
@@ -100,10 +107,10 @@ body {
     padding-left: 6px;
   }
   &:nth-of-type(odd) {
-    background: $whiterow;
+    background: $oddrow;
   }
   &:nth-of-type(even) {
-    background: $greyrow;
+    background: $evenrow;
   }
   &:last-child {
     border-radius: 0 0 5px 5px;

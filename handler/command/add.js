@@ -1,20 +1,15 @@
-var userDao = require("../../data/dao/user.js");
-var gameDao = require("../../data/dao/game.js");
+var userDao = require("../../data/dao/user");
+var gameDao = require("../../data/dao/game");
 
-const command = async (user) => {
-  var response;
-  if(!user){
-    return 'Please supply a user Eg. \'@User\'';
-  } else {
-    var userData = await userDao.getByDiscordId(user.id);
+const command = async (user, type) => {
+  var userData = await userDao.getByDiscordId(user.id, user.username);
 
-    if(!result) {
-      return 'User not registered';
-    }
-
-    await gameDao.add(userData.id);
-    return 'Point added';
+  if(!userData) {
+    return 'User not registered';
   }
+
+  await gameDao.add(userData.id, type);
+  return 'Point added';
 }
 
 module.exports = command;
